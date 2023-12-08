@@ -1601,7 +1601,7 @@ class VRouterDelegate extends RouterDelegate<RouteInformation>
 
       if (vHistory.currentLocation.url != '' &&
           vHistory.currentLocation.url != '/' &&
-          url != null) {
+          (url != null || kIsWeb)) {
         // Is this '' or '/' ? Both seem to appear from time to time
         // If we are deep-linking, just deep-link
         final url = vHistory.currentLocation.url;
