@@ -1297,11 +1297,10 @@ class VRouterDelegate extends RouterDelegate<RouteInformation>
     final _hash = (hash?.isEmpty ?? true) ? null : hash;
 
     if (!path.startsWith('/')) {
-      if (url == null) {
-        return;
-        // throw InvalidUrlVError(url: path);
-      }
-      final currentPath = Uri.parse(url!).path;
+      /*if (url == null) {
+        throw InvalidUrlVError(url: path);
+      }*/
+      final currentPath = Uri.parse(url ?? '').path;
       path = currentPath + (currentPath.endsWith('/') ? '' : '/') + path;
     }
 
