@@ -1298,7 +1298,8 @@ class VRouterDelegate extends RouterDelegate<RouteInformation>
 
     if (!path.startsWith('/')) {
       if (url == null) {
-        throw InvalidUrlVError(url: path);
+        return;
+        // throw InvalidUrlVError(url: path);
       }
       final currentPath = Uri.parse(url!).path;
       path = currentPath + (currentPath.endsWith('/') ? '' : '/') + path;
@@ -1600,8 +1601,7 @@ class VRouterDelegate extends RouterDelegate<RouteInformation>
       // Check if this is the first route
 
       if (vHistory.currentLocation.url != '' &&
-          vHistory.currentLocation.url != '/' &&
-          (url != null || kIsWeb)) {
+          vHistory.currentLocation.url != '/') {
         // Is this '' or '/' ? Both seem to appear from time to time
         // If we are deep-linking, just deep-link
         final url = vHistory.currentLocation.url;

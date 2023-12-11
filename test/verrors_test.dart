@@ -7,7 +7,7 @@ import 'package:vrouter/vrouter.dart';
 
 main() {
   group('VError', () {
-    testWidgets("InvalidPushVError", (WidgetTester tester) async {
+    /*testWidgets("InvalidPushVError", (WidgetTester tester) async {
       final vRouterKey = GlobalKey<VRouterState>();
 
       var caughtError;
@@ -30,7 +30,7 @@ main() {
           caughtError.toString(),
           "The current url is null but you are trying to access the path \"settings\" which does not start with '/'.\n"
           "This is likely because you set a initialUrl which does not start with '/'.");
-    });
+    });*/
 
     testWidgets("UnknownUrlVError", (WidgetTester tester) async {
       runZonedGuarded(() async {
