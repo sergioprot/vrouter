@@ -86,7 +86,7 @@ abstract class VHistory {
 
   VRouteInformation get currentLocation {
     if (_locations.length <= historyIndex) {
-      historyIndex = max(_locations.length - 1, 0);
+      historyIndex = 0;
     }
     return _locations.elementAt(historyIndex)!;
   }
