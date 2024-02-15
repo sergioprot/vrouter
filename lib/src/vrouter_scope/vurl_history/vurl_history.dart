@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'vurl_history_non_web.dart';
 import 'vurl_history_web.dart';
@@ -20,15 +19,19 @@ abstract class VHistory {
 
   VHistory({
     required this.vRouterMode,
-    required int initialHistoryIndex,
+    required this.initialHistoryIndex,
     required int initialHistoryLength,
-    required List<VRouteInformation?> initialLocations,
+    required this.initialLocations,
   })  : _historyIndex = initialHistoryIndex,
         _locations = initialLocations;
 
   int _historyIndex;
 
   int get historyIndex => _historyIndex;
+
+  final int initialHistoryIndex;
+
+  final List<VRouteInformation?> initialLocations;
 
   set historyIndex(int newHistoryIndex) {
     assert(0 <= newHistoryIndex && newHistoryIndex < _locations.length);
@@ -85,6 +88,10 @@ abstract class VHistory {
   }
 
   VRouteInformation get currentLocation {
+    if (_locations.isEmpty) {
+      _locations = initialLocations;
+      historyIndex = initialHistoryIndex;
+    }
     if (_locations.length <= historyIndex) {
       historyIndex = 0;
     }

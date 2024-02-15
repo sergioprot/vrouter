@@ -1629,13 +1629,21 @@ class VRouterDelegate extends RouterDelegate<RouteInformation>
       //   - The entire app has been rebuilt
       //   - VRouter.navigatorKey has changed
       // In this case we use _vLocations to get the current location
-      final url = vHistory.currentLocation.url;
+      String url;
+      Map<String, String> state;
+      try {
+        url = vHistory.currentLocation.url;
+        state = vHistory.currentLocation.state;
+      } catch (_) {
+        url = initialUrl;
+        state = {};
+      }
       final uri = Uri.parse(url);
       to(
         uri.path,
         queryParameters: uri.queryParameters,
         hash: uri.fragment.isEmpty ? null : Uri.decodeComponent(uri.fragment),
-        historyState: vHistory.currentLocation.state,
+        historyState: state,
         isReplacement: true,
       );
     }

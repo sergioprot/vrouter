@@ -8,9 +8,26 @@ void main() {
       debugShowCheckedModeBanner: false, // VRouter acts as a MaterialApp
       mode: VRouterMode.history, // Remove the '#' from the url
       // logs: [VLogLevel.info], // Defines which logs to show, info is the default
+      initialUrl: '/initial',
       routes: [
+        VGuard(
+          afterEnter: (context, from, to) async {
+            await Future.delayed(Duration(seconds: 2));
+            context.vRouter.to('/');
+          },
+          stackedRoutes: [
+            VWidget(
+              path: '/initial',
+              widget: Scaffold(
+                body: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+            ),
+          ],
+        ),
         VWidget(
-          path: '/login',
+          path: '/',
           widget: LoginWidget(),
           stackedRoutes: [
             ConnectedRoutes(), // Custom VRouteElement
@@ -18,7 +35,7 @@ void main() {
         ),
         // This redirect every unknown routes to /login
         VRouteRedirector(
-          redirectTo: '/login',
+          redirectTo: '/',
           path: r'*',
         ),
       ],
@@ -167,7 +184,7 @@ class MyScaffold extends StatelessWidget {
       // This FAB is shared with login and shows hero animations working with no issues
       floatingActionButton: FloatingActionButton(
         heroTag: 'FAB',
-        onPressed: () => VRouter.of(context).to('/login'),
+        onPressed: () => VRouter.of(context).to('/'),
         child: Icon(Icons.logout),
       ),
     );
