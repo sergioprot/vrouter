@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'vurl_history_non_web.dart';
 import 'vurl_history_web.dart';
@@ -83,7 +84,12 @@ abstract class VHistory {
         .replaceRange(historyIndex, historyIndex + 1, [vRouteInformation]);
   }
 
-  VRouteInformation get currentLocation => _locations.elementAt(historyIndex)!;
+  VRouteInformation get currentLocation {
+    if (_locations.length <= historyIndex) {
+      historyIndex = max(_locations.length - 1, 0);
+    }
+    return _locations.elementAt(historyIndex)!;
+  }
 
   List<VRouteInformation?> get locations => _locations;
 
