@@ -80,7 +80,7 @@ class BrowserHelpers {
 
     historyMethod(
       html.window.history.state, // Note that we don't change the historyState
-      'flutter',
+      html.document.title,
       _getBasePath() +
           ((routerMode == VRouterMode.hash) ? '#/' : '') +
           (url.startsWith('/') ? url.substring(1) : url),
@@ -206,14 +206,16 @@ class BrowserHelpers {
 
     // If Flutter has not yet restored the history state
     if (!globalState?.containsKey('state')) {
-      return html.window.history.replaceState(historyState, 'flutter', null);
+      return html.window.history
+          .replaceState(historyState, html.document.title, null);
     }
 
     // If a history state exist and Flutter has restored it
     globalState['state'] = historyState;
     globalState['serialCount'] =
         0; // Reset to 0 to avoid issues with flutter hot reload
-    return html.window.history.replaceState(globalState, 'flutter', null);
+    return html.window.history
+        .replaceState(globalState, html.document.title, null);
   }
 
   static Map<String, dynamic> _mapDynamicDynamicToMapStringDynamic(
